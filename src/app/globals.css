@@ -1,0 +1,279 @@
+@import "leaflet/dist/leaflet.css";
+
+:root {
+  /* Brand Palettes */
+  --light-blue: #0ea5e9;
+  --deep-blue: #0284c7;
+  --vibrant-orange: #f97316;
+  --soft-orange: #fb923c;
+  --primary-accent: var(--light-blue);
+  --secondary-accent: var(--vibrant-orange);
+
+  /* Semantic Highlights */
+  --star-gold: #ffb800;
+  --emerald-green: #10b981;
+  --coral-red: #f43f5e;
+
+  /* Surfaces & Backgrounds - Light */
+  --bg-primary: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-secondary: #f1f5f9;
+  --bg-surface-tertiary: #e2e8f0;
+  --bg-glass: rgba(255, 255, 255, 0.82);
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-glass: rgba(255, 255, 255, 0.4);
+
+  /* Text Colors */
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-tertiary: #94a3b8;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 16px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-floating: 0 12px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+  --shadow-accent: 0 8px 24px -4px rgba(14, 165, 233, 0.35);
+  --shadow-orange: 0 8px 24px -4px rgba(249, 115, 22, 0.35);
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(135deg, #0ea5e9 0%, #f97316 100%);
+  --gradient-blue: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  --gradient-orange: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  --gradient-card-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #090d16;
+    --bg-surface: #111827;
+    --bg-surface-secondary: #1a2234;
+    --bg-surface-tertiary: #26334d;
+    --bg-glass: rgba(17, 24, 39, 0.85);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-glass: rgba(255, 255, 255, 0.12);
+
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-tertiary: #64748b;
+
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --shadow-floating: 0 16px 40px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  max-width: 100vw;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Typography Helpers */
+.title-large {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.title-medium {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.title-small {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.body-regular {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.caption {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* Card & Glass Modifiers */
+.minimal-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+
+.glass-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-floating);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--light-blue);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary:hover {
+  background: var(--deep-blue);
+  transform: translateY(-1px);
+}
+
+.btn-orange {
+  background: var(--vibrant-orange);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-orange);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-orange:hover {
+  background: #ea580c;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--bg-surface-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--bg-surface-tertiary);
+}
+
+/* Horizontal Scroll Container */
+.horizontal-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.horizontal-scroll > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* Custom Leaflet Map Styling for Apple-like look */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+  z-index: 1;
+}
+
+.leaflet-bar {
+  border: none !important;
+  box-shadow: var(--shadow-floating) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+}
+
+.leaflet-bar a {
+  background-color: var(--bg-glass) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  width: 38px !important;
+  height: 38px !important;
+  line-height: 38px !important;
+}
+
+.leaflet-control-attribution {
+  font-size: 10px !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(4px);
+}
+
+/* Responsive Container */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 20px 96px 20px;
+}
+
+@media (min-width: 1024px) {
+  .main-content {
+    padding-bottom: 40px;
+  }
+}
